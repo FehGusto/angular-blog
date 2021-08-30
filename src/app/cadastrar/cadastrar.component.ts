@@ -1,15 +1,47 @@
+import { Router, RouterModule } from '@angular/router';
+import { AuthService } from './../service/auth.service';
 import { Component, OnInit } from '@angular/core';
+import { User } from '../model/User';
 
 @Component({
   selector: 'app-cadastrar',
   templateUrl: './cadastrar.component.html',
   styleUrls: ['./cadastrar.component.css']
 })
-export class CadastrarComponent implements OnInit {
+export class CadastrarComponent {
 
-  constructor() { }
+  user: User = new User
+  comfirmarSenha: string
+  tipoUsuario: string
 
-  ngOnInit(): void {
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) { }
+
+  ngOnInit() {
+    window.scroll(0,0)
   }
 
+  confirmSenha(event: any) {
+    this.comfirmarSenha = event.target.value
+  }
+
+  tipoUser(event: any) {
+    this.tipoUsuario = event.target.value
+  }
+
+  cadastrar() {
+    this.user.tipo = this.tipoUsuario
+
+    if (this.user.senhaUsuario != this.comfirmarSenha) {
+      alert('As senhas não podem ser diferentes')
+    } else {
+      this.authService.cadastrar(this.user).subscribe((resp: User) => {
+        this.user = resp
+        this.router.navigate(['/entrar'])
+        alert('Usuario cadastrado com sucesso!')
+      })
+    }
+  }
 }

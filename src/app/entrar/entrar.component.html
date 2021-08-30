@@ -5,15 +5,15 @@
         <div class="col-md-6">
           <h1 class="text-center mb-3">Entrar</h1>
           <div class="form-group">
-            <label for="usuario">Usuário</label>
-            <input class="form-control" name="usuario" id="usuario" placeholder="Seu usuário">
+            <label for="email">Email</label>
+            <input [(ngModel)]='userLogin.emailUsuario' class="form-control" name="email" id="email" placeholder="Insira seu email">
           </div>
           <div class="form-group">
             <label for="senha">Senha</label>
-            <input class="form-control" name="senha" id="senha" placeholder="Sua senha">
+            <input [(ngModel)]='userLogin.senhaUsuario' class="form-control" type="password" name="senha" id="senha" placeholder="Sua senha">
           </div>
           <div class="d-flex justify-content-center">
-            <button type="submit" class="btn btn-success form-control">Entrar</button>
+            <button type="submit" class="btn btn-success form-control" (click)='entrar()'>Entrar</button>
           </div>
           <hr class="mt-5 mb-5">
           <p class="text-center">Não tem conta? <a routerLink='/cadastrar'>Cadastre-se</a></p>
